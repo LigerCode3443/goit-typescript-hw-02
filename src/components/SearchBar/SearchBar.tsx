@@ -11,10 +11,10 @@ const searchSchema = Yup.object({
 });
 
 interface SearchBarProps {
-  setQuery: (data: value) => void;
+  setQuery: (data: string) => void;
 }
 interface value {
-  data: { query: string };
+  query: string;
 }
 
 export const SearchBar = ({ setQuery }: SearchBarProps) => {
