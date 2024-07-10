@@ -19,8 +19,6 @@ interface value {
 }
 
 export const SearchBar = ({ setQuery }: SearchBarProps) => {
-  const inputRef = useRef<HTMLInputElement>(null);
-
   const {
     register,
     handleSubmit,
@@ -34,16 +32,12 @@ export const SearchBar = ({ setQuery }: SearchBarProps) => {
     reset();
   };
 
-  useEffect(() => {
-    inputRef.current?.focus();
-  }, []);
-
   return (
     <header className={s.header}>
       <form onSubmit={handleSubmit(onSubmit)} className={s.form}>
         <input
-          ref={inputRef}
           type="search"
+          autoFocus
           {...register("query")}
           placeholder="Search..."
           className={s.input}
