@@ -1,8 +1,10 @@
 import Modal from "react-modal";
+import { Photo } from "../../App";
+import ReactModal from "react-modal";
 
 Modal.setAppElement("#root");
 
-const customStyles = {
+const customStyles: ReactModal.Styles = {
   content: {
     top: "50%",
     left: "50%",
@@ -19,8 +21,16 @@ const customStyles = {
     backgroundColor: "rgba(40, 40, 40, 0.75)",
   },
 };
-
-export const ImgModal = ({ modalIsOpen, closeModal, selectImg }) => {
+interface ImgModalProps {
+  modalIsOpen: (photo: Photo) => void | Photo;
+  closeModal: () => void;
+  selectImg: Photo | null;
+}
+export const ImgModal: React.FC<ImgModalProps> = ({
+  modalIsOpen,
+  closeModal,
+  selectImg,
+}) => {
   return (
     <div>
       <Modal

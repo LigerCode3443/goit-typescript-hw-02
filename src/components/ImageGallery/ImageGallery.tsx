@@ -1,7 +1,14 @@
+import { Photo } from "../../App";
 import { ImgCard } from "../ImgCard/ImgCard";
 import s from "./ImageGallery.module.css";
-
-export const ImageGallery = ({ photos, modalIsOpen }) => {
+interface GalleryProps {
+  photos: Photo[];
+  modalIsOpen: (photo: Photo) => void;
+}
+export const ImageGallery: React.FC<GalleryProps> = ({
+  photos,
+  modalIsOpen,
+}) => {
   return (
     <ul className={s.list}>
       {photos.map((photo) => (

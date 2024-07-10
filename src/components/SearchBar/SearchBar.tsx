@@ -10,7 +10,14 @@ const searchSchema = Yup.object({
     .required("Empty field"),
 });
 
-export const SearchBar = ({ setQuery }) => {
+interface SearchBarProps {
+  setQuery: (data: value) => void;
+}
+interface value {
+  data: { query: string };
+}
+
+export const SearchBar = ({ setQuery }: SearchBarProps) => {
   const {
     register,
     handleSubmit,
@@ -19,7 +26,7 @@ export const SearchBar = ({ setQuery }) => {
   } = useForm({
     resolver: yupResolver(searchSchema),
   });
-  const onSubmit = (data) => {
+  const onSubmit = (data: value): void => {
     setQuery(data.query);
     reset();
   };

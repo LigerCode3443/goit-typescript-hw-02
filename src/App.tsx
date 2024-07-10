@@ -5,20 +5,31 @@ import {
   LoadMore,
   Loader,
   ImgModal,
-} from "components";
+} from "./components";
 import { useEffect, useState } from "react";
-import { getPhotos } from "service/photoApi";
+import { getPhotos } from "./service/photoApi";
+
+interface Urls {
+  small: string | undefined;
+  regular: string | undefined;
+}
+
+export interface Photo {
+  id: number;
+  alt_description?: string;
+  urls: Urls;
+}
 
 function App() {
-  const [query, setQuery] = useState("");
-  const [page, setPage] = useState(1);
-  const [photos, setPhotos] = useState([]);
-  const [loadMore, setLoadMore] = useState(false);
-  const [error, setError] = useState(false);
-  const [isLoader, setIsLoader] = useState(false);
-  const [isOpenModal, setIsOpenModal] = useState(false);
-  const [selectImg, setSelectImg] = useState(null);
-  const [isEmpty, setIsEmpty] = useState(false);
+  const [query, setQuery] = useState<string>("");
+  const [page, setPage] = useState<number>(1);
+  const [photos, setPhotos] = useState<Photo[]>([]);
+  const [loadMore, setLoadMore] = useState<boolean>(false);
+  const [error, setError] = useState<boolean | string | Error>(false);
+  const [isLoader, setIsLoader] = useState<boolean>(false);
+  const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
+  const [selectImg, setSelectImg] = useState<Photo | null>(null);
+  const [isEmpty, setIsEmpty] = useState<boolean>(false);
 
   useEffect(() => {
     if (!query) return;
@@ -43,7 +54,7 @@ function App() {
     getData();
   }, [query, page]);
 
-  const handleSubmit = (query) => {
+  const handleSubmit = (query: string) => {
     setQuery(query);
     setPage(1);
     setPhotos([]);
@@ -51,14 +62,14 @@ function App() {
     setIsEmpty(false);
   };
 
-  const handleLoadMore = () => {
+  const handleLoadMore = (): void => {
     setPage((prev) => prev + 1);
   };
-  const modalIsOpen = (photo) => {
+  const modalIsOpen = (photo: Photo): void | Photo => {
     setIsOpenModal(true);
     setSelectImg(photo);
   };
-  const closeModal = () => {
+  const closeModal = (): void => {
     setIsOpenModal(false);
     setSelectImg(null);
   };
