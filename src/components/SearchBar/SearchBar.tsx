@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import s from "./SearchBar.module.css";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useEffect, useRef } from "react";
 
 const searchSchema = Yup.object({
   query: Yup.string()
@@ -18,6 +19,8 @@ interface value {
 }
 
 export const SearchBar = ({ setQuery }: SearchBarProps) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+
   const {
     register,
     handleSubmit,
@@ -31,10 +34,15 @@ export const SearchBar = ({ setQuery }: SearchBarProps) => {
     reset();
   };
 
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
+
   return (
     <header className={s.header}>
       <form onSubmit={handleSubmit(onSubmit)} className={s.form}>
         <input
+          ref={inputRef}
           type="search"
           {...register("query")}
           placeholder="Search..."

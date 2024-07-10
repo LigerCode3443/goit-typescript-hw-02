@@ -6,7 +6,7 @@ import {
   Loader,
   ImgModal,
 } from "./components";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { getPhotos } from "./service/photoApi";
 
 interface Urls {
@@ -18,6 +18,11 @@ export interface Photo {
   id: number;
   alt_description?: string;
   urls: Urls;
+}
+interface PhotosProps {
+  results: [];
+  total: number;
+  total_pages: number;
 }
 
 function App() {
@@ -38,7 +43,10 @@ function App() {
       try {
         setIsLoader(true);
         setError(null);
-        const { results, total, total_pages } = await getPhotos(query, page);
+        const { results, total, total_pages }: PhotosProps = await getPhotos(
+          query,
+          page
+        );
         setPhotos((prev) => [...prev, ...results]);
         setLoadMore(page < total_pages);
         if (!total) {
@@ -77,6 +85,7 @@ function App() {
     setIsOpenModal(false);
     setSelectImg(null);
   };
+
   return (
     <>
       <SearchBar setQuery={handleSubmit} />
