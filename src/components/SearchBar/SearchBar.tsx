@@ -2,7 +2,6 @@ import { useForm } from "react-hook-form";
 import s from "./SearchBar.module.css";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useEffect, useRef } from "react";
 
 const searchSchema = Yup.object({
   query: Yup.string()

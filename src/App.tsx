@@ -7,7 +7,7 @@ import {
   ImgModal,
 } from "./components";
 import { useEffect, useRef, useState } from "react";
-import { getPhotos } from "./service/photoApi";
+import { PhotosProps, getPhotos } from "./service/photoApi";
 
 interface Urls {
   small: string | undefined;
@@ -18,11 +18,6 @@ export interface Photo {
   id: number;
   alt_description?: string;
   urls: Urls;
-}
-interface PhotosProps {
-  results: Photo[];
-  total: number;
-  total_pages: number;
 }
 
 function App() {
