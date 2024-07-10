@@ -22,7 +22,7 @@ const customStyles: ReactModal.Styles = {
   },
 };
 interface ImgModalProps {
-  modalIsOpen: (photo: Photo) => void | Photo;
+  modalIsOpen: boolean;
   closeModal: () => void;
   selectImg: Photo | null;
 }
@@ -39,7 +39,9 @@ export const ImgModal: React.FC<ImgModalProps> = ({
         style={customStyles}
         contentLabel="Example Modal"
       >
-        <img src={selectImg?.urls} alt={selectImg?.alt_description} />
+        {selectImg && (
+          <img src={selectImg.urls.regular} alt={selectImg.alt_description} />
+        )}
       </Modal>
     </div>
   );

@@ -25,7 +25,7 @@ function App() {
   const [page, setPage] = useState<number>(1);
   const [photos, setPhotos] = useState<Photo[]>([]);
   const [loadMore, setLoadMore] = useState<boolean>(false);
-  const [error, setError] = useState<boolean | string | Error>(false);
+  const [error, setError] = useState<string | null>(null);
   const [isLoader, setIsLoader] = useState<boolean>(false);
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const [selectImg, setSelectImg] = useState<Photo | null>(null);
@@ -37,7 +37,7 @@ function App() {
     const getData = async () => {
       try {
         setIsLoader(true);
-        setError(false);
+        setError(null);
         const { results, total, total_pages } = await getPhotos(query, page);
         setPhotos((prev) => [...prev, ...results]);
         setLoadMore(page < total_pages);
@@ -45,7 +45,11 @@ function App() {
           setIsEmpty(true);
         }
       } catch (error) {
-        setError(error.message);
+        if (error instanceof Error) {
+          setError(error.message);
+        } else {
+          setError("Unknown error occurred");
+        }
       } finally {
         setIsLoader(false);
       }

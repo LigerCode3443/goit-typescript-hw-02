@@ -13,7 +13,7 @@ export const ImageGallery: React.FC<GalleryProps> = ({
     <ul className={s.list}>
       {photos.map((photo) => (
         <li key={photo.id} className={s.item}>
-          <ImgCard {...photo} modalIsOpen={modalIsOpen} />
+          <ImgCard photo={photo} modalIsOpen={modalIsOpen} />
         </li>
       ))}
     </ul>
