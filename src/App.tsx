@@ -20,7 +20,7 @@ export interface Photo {
   urls: Urls;
 }
 interface PhotosProps {
-  results: [];
+  results: Photo[];
   total: number;
   total_pages: number;
 }
